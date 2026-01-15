@@ -1,0 +1,421 @@
+:root {
+    /* --- 颜色设置 --- */
+    /* 游戏机外壳：恢复为原来的灰白色 */
+    --console-bg: #dcdcdc;
+    --console-dark: #aaa;
+    --dpad-color: #2b2b2b;
+    --console-red: #e60012;
+    --screen-bg: #8b9bb4;
+    --screen-on: #9bbc0f;
+    --pixel-color: #0f380f;
+    
+    /* --- 信息面板颜色 --- */
+    --info-panel-bg: #e8e4d9;
+    --info-lcd-bg: #cfd8dc;
+    
+    --shadow-light: rgba(255, 255, 255, 0.6);
+    --shadow-dark: rgba(0, 0, 0, 0.4);
+}
+
+* {
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    /* --- 背景改为米白色 --- */
+    background-color: #f4f0e6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Press Start 2P', cursive;
+    overflow: auto; 
+}
+
+/* 游戏机外壳 */
+.console-case {
+    width: 100%;
+    max-width: 750px; 
+    background-color: var(--console-bg);
+    border-radius: 20px 20px 40px 40px;
+    padding: 20px;
+    box-shadow: 
+        inset 5px 5px 15px var(--shadow-light),
+        inset -5px -5px 15px var(--shadow-dark),
+        10px 10px 30px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin: 20px 0;
+}
+
+.case-top-line {
+    width: 60%;
+    height: 10px;
+    background: var(--console-dark);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* --- 顶部区域：包含屏幕和侧边栏 --- */
+.top-area {
+    display: flex;
+    gap: 15px;
+    align-items: stretch; /* 让两个盒子拉伸到相同高度 */
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* 屏幕边框区域 */
+.screen-bezel {
+    background-color: #555;
+    padding: 20px; /* 上下左右各20px */
+    border-radius: 10px 10px 30px 10px;
+    box-shadow: 
+        inset 2px 2px 5px rgba(0,0,0,0.5),
+        5px 5px 10px rgba(0,0,0,0.3);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.screen-container {
+    position: relative;
+    width: 320px;
+    height: 352px; /* 修改：增加高度以容纳更多内容 (22行格子) */
+    background-color: var(--screen-bg);
+    border: 4px solid #444;
+    box-shadow: inset 5px 5px 20px rgba(0,0,0,0.6);
+    overflow: hidden;
+}
+
+/* --- 右侧信息面板 --- */
+.info-panel {
+    width: 200px;
+    /* 修改：高度 = Bezel Padding(20+20) + Canvas(352) = 392px */
+    height: 392px; 
+    background-color: var(--info-panel-bg);
+    border-radius: 10px;
+    border: 2px solid #aaa;
+    display: flex;
+    flex-direction: column;
+    /* 修改：Padding改为20px以匹配左侧Bezel */
+    padding: 20px; 
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.1);
+    /* 确保内容从上往下排，底部对齐由高度控制 */
+    justify-content: flex-start; 
+}
+
+.panel-title {
+    font-size: 10px;
+    color: #555;
+    margin-bottom: 10px;
+    text-align: center;
+    border-bottom: 1px dashed #999;
+    width: 100%;
+    padding-bottom: 5px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.fruit-display-box {
+    width: 80px;
+    height: 80px;
+    background-color: var(--info-lcd-bg);
+    border: 2px solid #888;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    margin: 0 auto 15px auto; /* 居中 */
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    flex-shrink: 0;
+}
+
+.fruit-display-box.pop {
+    transform: scale(1.1);
+    border-color: #fff;
+    box-shadow: 0 0 15px #9bbc0f, inset 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+.text-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
+    flex-shrink: 0;
+}
+
+.fruit-label {
+    font-size: 10px;
+    color: #666;
+    font-family: sans-serif;
+    text-transform: uppercase;
+}
+
+.fruit-name {
+    font-size: 11px;
+    color: #333;
+    font-weight: bold;
+    font-family: sans-serif;
+    text-align: left;
+    background: #fff;
+    padding: 4px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    min-height: 20px;
+}
+
+/* --- 图鉴区域 --- */
+.collection-title {
+    font-size: 9px;
+    color: #555;
+    font-family: sans-serif;
+    font-weight: bold;
+    width: 100%;
+    border-top: 1px dashed #bbb;
+    padding-top: 8px;
+    margin-bottom: 8px;
+    text-align: left;
+    flex-shrink: 0;
+}
+
+.collection-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4列布局 */
+    gap: 8px;
+    width: 100%;
+    flex-grow: 1; /* 占据剩余空间 */
+    align-content: start; /* 内容靠上，防止拉伸 */
+}
+
+.collect-icon {
+    font-size: 18px;
+    text-align: center;
+    cursor: default;
+    transition: all 0.3s;
+}
+
+.collect-icon.uncollected {
+    filter: grayscale(100%) brightness(0.4);
+    opacity: 0.6;
+}
+
+.collect-icon.collected {
+    filter: none;
+    opacity: 1;
+    transform: scale(1.1);
+    text-shadow: 0 0 5px #fff;
+}
+
+/* --- 屏幕内部内容 --- */
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+}
+
+.scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.game-ui {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--pixel-color);
+    text-align: center;
+    z-index: 20;
+    background: rgba(155, 188, 15, 0.85);
+    transition: opacity 0.3s;
+}
+.game-ui.hidden { opacity: 0; pointer-events: none; }
+.title { font-size: 1.2rem; margin-bottom: 20px; text-transform: uppercase; text-shadow: 2px 2px #fff; }
+.blink { animation: blinker 1s linear infinite; }
+.blink-cut { animation: blinker 1s steps(2, start) infinite; }
+.blink-3 { animation: blinker 0.6s steps(2, start) 3; }
+@keyframes blinker { 50% { opacity: 0; } }
+
+/* --- 控制区域 --- */
+.controls-area {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+/* 十字键 */
+.d-pad { width: 120px; height: 120px; position: relative; }
+.d-pad-part {
+    position: absolute;
+    background-color: var(--dpad-color);
+    cursor: pointer;
+    box-shadow: inset 2px 2px 5px rgba(255,255,255,0.2), inset -2px -2px 5px rgba(0,0,0,0.5), 2px 2px 5px rgba(0,0,0,0.3);
+    transition: background-color 0.1s, box-shadow 0.1s;
+}
+.d-pad-part:active, .d-pad-part.active {
+    background-color: #1a1a1a;
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.7);
+}
+.d-up { top: 0; left: 33.33%; width: 33.33%; height: 33.33%; border-radius: 5px 5px 0 0; z-index: 1; }
+.d-down { bottom: 0; left: 33.33%; width: 33.33%; height: 33.33%; border-radius: 0 0 5px 5px; z-index: 1; }
+.d-left { top: 33.33%; left: 0; width: 33.33%; height: 33.33%; border-radius: 5px 0 0 5px; z-index: 2; }
+.d-right { top: 33.33%; right: 0; width: 33.33%; height: 33.33%; border-radius: 0 5px 5px 0; z-index: 2; }
+.d-center {
+    position: absolute;
+    width: 33.33%;
+    height: 33.33%;
+    top: 33.33%;
+    left: 33.33%;
+    background: radial-gradient(circle, #444 20%, #222 100%);
+    z-index: 5;
+    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5);
+    border-radius: 50%;
+}
+.d-pad-part::after {
+    content: '';
+    position: absolute;
+    background: rgba(0,0,0,0.5);
+}
+.d-up::after { top: 5px; left: 35%; width: 30%; height: 3px; box-shadow: 0 4px 0 rgba(0,0,0,0.5); }
+.d-down::after { bottom: 5px; left: 35%; width: 30%; height: 3px; box-shadow: 0 -4px 0 rgba(0,0,0,0.5); }
+.d-left::after { left: 5px; top: 35%; height: 30%; width: 3px; box-shadow: 4px 0 0 rgba(0,0,0,0.5); }
+.d-right::after { right: 5px; top: 35%; height: 30%; width: 3px; box-shadow: -4px 0 0 rgba(0,0,0,0.5); }
+
+/* START 按钮 */
+.action-area {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    width: auto;
+    gap: 15px;
+}
+.btn-round {
+    width: 90px;
+    height: 90px;
+    background-color: var(--console-red);
+    border-radius: 50%;
+    box-shadow: inset 3px 3px 8px var(--shadow-light), inset -3px -3px 8px var(--shadow-dark), 3px 3px 8px rgba(0,0,0,0.4);
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.1s;
+}
+.btn-round:active, .btn-round.active {
+    box-shadow: inset 3px 3px 8px rgba(0,0,0,0.5);
+    transform: scale(0.95);
+    background-color: #c40010;
+}
+.reset-hint {
+    color: #333;
+    font-family: sans-serif;
+    font-weight: 900;
+    font-size: 14px; /* Enlarged font size */
+    letter-spacing: 0.5px;
+    text-align: right;
+    line-height: 1.4;
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.reset-hint::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 10px solid #333; /* Pixel arrow pointing right */
+    filter: drop-shadow(1px 1px 0 rgba(255,255,255,0.5));
+}
+
+/* 装饰 LOGO */
+.brand-logo {
+    position: absolute;
+    top: 25px;
+    left: 30px;
+    font-family: 'Press Start 2P', cursive;
+    font-weight: normal;
+    font-style: normal;
+    color: rgba(0,0,0,0.2);
+    font-size: 0.8rem;
+    transform: none;
+    pointer-events: none;
+    white-space: nowrap;
+    line-height: 1.5;
+}
+
+.speaker {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    display: grid;
+    grid-template-columns: repeat(6, 4px);
+    gap: 4px;
+}
+.speaker-hole {
+    width: 4px;
+    height: 4px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 50%;
+}
+
+/* 响应式调整 */
+@media (max-width: 600px) {
+    .console-case { padding: 15px; }
+    .top-area { flex-direction: column; gap: 10px; }
+    .screen-container { 
+        width: 100%; 
+        max-width: 320px; 
+        height: auto; 
+        aspect-ratio: 320 / 352; /* 保持新的比例 */
+    }
+    .info-panel { 
+        width: 100%; 
+        height: auto; 
+        flex-direction: row; 
+        flex-wrap: wrap; 
+        padding: 10px; 
+        gap: 10px;
+        /* 手机端不再强制等高 */
+    }
+    
+    .collection-title, .collection-grid { display: none; }
+    
+    .fruit-display-box { width: 60px; height: 60px; font-size: 30px; margin-bottom: 0; }
+    .text-container { width: 60%; }
+    .controls-area { padding: 0 10px; }
+    .d-pad { width: 100px; height: 100px; }
+    .btn-round { width: 50px; height: 50px; }
+    .title { font-size: 1rem; }
+    .brand-logo { font-size: 0.6rem; left: 20px; }
+}

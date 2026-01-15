@@ -1,0 +1,30 @@
+npm verbose cli D:\newnode.js\node.exe D:\newnode.js\node_modules\npm\bin\npm-cli.js
+npm info using npm@11.6.2
+npm info using node@v24.12.0
+npm verbose title npm install
+npm verbose argv "install" "--loglevel" "verbose"
+npm verbose logfile logs-max:10 dir:C:\Users\Eva\AppData\Local\npm-cache\_logs\2026-01-15T14_13_05_608Z-
+npm verbose logfile C:\Users\Eva\AppData\Local\npm-cache\_logs\2026-01-15T14_13_05_608Z-debug-0.log
+npm verbose shrinkwrap failed to load node_modules/.package-lock.json out of date, updated: node_modules
+npm http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 1888ms
+npm http fetch GET 200 https://registry.npmjs.org/esbuild 424ms (cache revalidated)
+npm http fetch GET 200 https://registry.npmjs.org/vite 392ms (cache revalidated)
+npm http fetch GET 200 https://registry.npmjs.org/@vitejs%2fplugin-react 407ms (cache revalidated)
+
+up to date, audited 279 packages in 7s
+
+110 packages are looking for funding
+  run `npm fund` for details
+
+2 moderate severity vulnerabilities
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+npm verbose cwd E:\Users\Eva\Desktop\lovart ai\贪吃蛇西语单词机\图鉴版本代码\snake-game-react
+npm verbose os Windows_NT 10.0.19045
+npm verbose node v24.12.0
+npm verbose npm  v11.6.2
+npm verbose exit 0
+npm info ok
